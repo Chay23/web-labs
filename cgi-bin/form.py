@@ -1,5 +1,16 @@
 import cgi
+#!/usr/bin/env python3
+import os
+import http.cookies
+count = 0
+cookie = http.cookies.SimpleCookie(os.environ.get("HTTP_COOKIE"))
+name = cookie.get("name")
+if name:
+    count = int(name.value) + 1
+print("Content-type: text/html\n")
+print("Set-cookie: name={}" .format(count))
 
+print(count)
 form = cgi.FieldStorage()
 text1 = form.getfirst("name", "Не задано")
 text2 = form.getfirst("surname", "Не задано")
@@ -26,6 +37,7 @@ print("<p>CheckBox res:</p>")
 for elem in c:
     print("<p>{}</p>".format(elem))
 
+print("Скільки разів було відкрито форму: 11")
 print("""</body>
         </html>""")
 
